@@ -119,8 +119,8 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'adute.wsgi.application'
-ASGI_APPLICATION = "adute.asgi.application"
+WSGI_APPLICATION = 'adute.wsgi.application'
+# ASGI_APPLICATION = "adute.asgi.application"
 
 
 
