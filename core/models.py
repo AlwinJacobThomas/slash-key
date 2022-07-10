@@ -18,6 +18,7 @@ class Merchant(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     shop_name = models.CharField(max_length=255)
     location = PlainLocationField(based_fields=['city'], zoom=7)
+    address = models.CharField(max_length=300)
     def __str__(self) -> str:
         return self.shop_name
 

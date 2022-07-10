@@ -1,9 +1,7 @@
 from django.urls import path
 
-from .views import ProductList, MerchantList, CatagoryList
+from .views import merchant_dashboard
 
 urlpatterns = [
-    path('productlist/', ProductList.as_view()),
-    path('merchantslist/', MerchantList.as_view()),
-    path('catagory/', CatagoryList.as_view())
+    path('', merchant_dashboard, name="merchant_dashboard")
 ]
