@@ -27,4 +27,3 @@ txaio==22.2.1
 typing-extensions==4.3.0
 tzdata==2022.1
 whitenoise==6.2.0
-zope.interface==5.4.0
