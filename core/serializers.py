@@ -1,8 +1,13 @@
+from attr import fields
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Catagory, Product, Merchant
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

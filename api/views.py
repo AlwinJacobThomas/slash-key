@@ -1,15 +1,37 @@
 from dataclasses import dataclass
+
+from django.shortcuts import render
 from core.models import Product
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView
+)
+
+# import requests
 
 
 from core.models import Product, Merchant, Catagory
-from core.serializers import CatagorySerializer, MerchantSerializer, ProductSerializer
+from core.serializers import CatagorySerializer, MerchantSerializer, ProductSerializer, UserSerializer
 
+
+class RegisterUser(APIView):
+
+    def post(self, request):
+        data = request.data
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            view = TokenObtainPairView.as_view()
+            # breakpoint()
+            # return Response(view(request._request))
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
 class ProductList(APIView):
 
@@ -22,7 +44,7 @@ class ProductList(APIView):
                 obj = Product.objects.filter(seller=user)
                 serialiser = ProductSerializer(obj, many=True)
 
-                return Response(serialiser.data, status=status.HTTP_200_OK)
+                return Response(serialiser.data, status=status. HTTP_200_OK)
 
         except Exception as e:
             return Response("NOt a merchant user")
@@ -31,7 +53,9 @@ class ProductList(APIView):
 
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save() 
+            
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -95,3 +119,10 @@ class CatagoryList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+
+class AllProduct(APIView):
+
+    def get(self, request):
+        obj = Product.objects.all()
+        serializer = ProductSerializer(obj, many=True)
+        return Response(serializer.data)
