@@ -1,1 +1,1 @@
-web: gunicorn adute.asgi
+web: gunicorn adute.wsgi
